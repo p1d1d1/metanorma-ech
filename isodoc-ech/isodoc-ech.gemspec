@@ -15,7 +15,15 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.7"
 
-  spec.files = Dir["lib/**/*", "templates/**/*", "*.gemspec", "README.adoc"]
+  spec.files = Dir.chdir(__dir__) {
+   Dir[
+     "lib/**/*",
+     "templates/**/*",
+     "*.gemspec",
+     "README.adoc",
+     "LICENSE.txt"
+    ]
+  }
   spec.require_paths = ["lib"]
 
   spec.add_dependency "isodoc"
