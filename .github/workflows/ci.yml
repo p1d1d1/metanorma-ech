@@ -52,10 +52,14 @@ jobs:
           chmod 0600 ~/.gem/credentials
 
       - name: Build gem
-        run: gem build *.gemspec
+        run: |
+          gem build metanorma-ech/metanorma-ech.gemspec
+          gem build isodoc-ech/isodoc-ech.gemspec
 
       - name: Push to GitHub Packages
         run: |
-          gem push --key github \
-            --host https://rubygems.pkg.github.com/${{ github.repository_owner }} \
-            *.gem
+          for gem in *.gem; do
+            gem push --key github \
+              --host https://rubygems.pkg.github.com/${{ github.repository_owner }} \
+              "$gem"
+          done
