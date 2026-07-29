@@ -31,7 +31,7 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    if: if: always() && needs.test.result == 'success' && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v'))
     permissions:
       packages: write
       contents: read
