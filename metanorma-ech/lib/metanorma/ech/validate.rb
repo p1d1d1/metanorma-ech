@@ -24,11 +24,13 @@ module Metanorma
         REQUIRED_ATTRS.each do |attr|
           val = doc.attr(attr)
           if val.nil? || val.empty?
-            @log.add("Metadata", nil,
-                     "eCH: required attribute :#{attr}: is missing")
+            @log.add(
+              "Metadata",
+              "eCH: required attribute :#{attr}: is missing")
           elsif PLACEHOLDER_RE.match?(val)
-            @log.add("Metadata", nil,
-                     "eCH: attribute :#{attr}: still contains placeholder value '#{val}'")
+            @log.add(
+              "Metadata",
+              "eCH: attribute :#{attr}: still contains placeholder value '#{val}'")
           end
         end
       end
