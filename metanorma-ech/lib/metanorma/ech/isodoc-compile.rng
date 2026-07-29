@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="https://www.ech.ch/ns/metanorma"
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="biblio-standoc.rng"/>
+  <include href="isodoc.rng">
+    <define name="standard-document">
+      <element name="ech-standard">
+        <ref name="Root-Attributes"/>
+        <ref name="bibdata"/>
+        <zeroOrMore>
+          <ref name="termdocsource"/>
+        </zeroOrMore>
+        <optional>
+          <ref name="misccontainer"/>
+        </optional>
+        <optional>
+          <ref name="boilerplate"/>
+        </optional>
+        <ref name="preface"/>
+        <oneOrMore>
+          <ref name="sections"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <ref name="annex"/>
+        </zeroOrMore>
+        <ref name="bibliography"/>
+        <zeroOrMore>
+          <ref name="indexsect"/>
+        </zeroOrMore>
+      </element>
+    </define>
+  </include>
+</grammar>
