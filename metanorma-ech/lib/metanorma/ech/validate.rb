@@ -2,8 +2,7 @@
 
 module Metanorma
   module Ech
-    module Validate
-      # Warn if required cover-page fields are missing or use placeholder values.
+    class Validate < Standoc::Validate
       REQUIRED_ATTRS = %w[
         ech-nummer
         edition
@@ -17,7 +16,6 @@ module Metanorma
       def validate(doc)
         super
         validate_ech_metadata(doc)
-        validate_required_sections(doc)
       end
 
       private
@@ -26,25 +24,11 @@ module Metanorma
         REQUIRED_ATTRS.each do |attr|
           val = doc.attr(attr)
           if val.nil? || val.empty?
-            @log.add("Metadata", nil, "eCH: required attribute :#{attr}: is missing")
+            @log.add("Metadata", nil,
+                     "eCH: required attribute :#{attr}: is missing")
           elsif PLACEHOLDER_RE.match?(val)
-            @log.add("Metadata", nil, "eCH: attribute :#{attr}: still contains placeholder value '#{val}'")
-          end
-        end
-      end
-
-      def validate_required_sections(doc)
-        xmldoc = doc.converter.instance_variable_get(:@draft)
-        return unless xmldoc
-
-        required = %w[
-          //sections/clause[@type='scope']
-          //sections/clause[@type='security']
-          //bibliography
-        ]
-        required.each do |xpath|
-          unless xmldoc.at(xpath)
-            @log.add("Sections", nil, "eCH: required section missing (#{xpath})")
+            @log.add("Metadata", nil,
+                     "eCH: attribute :#{attr}: still contains placeholder value '#{val}'")
           end
         end
       end
