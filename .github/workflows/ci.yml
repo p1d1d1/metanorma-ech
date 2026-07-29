@@ -13,17 +13,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug GitHub Context
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Git Ref: ${{ github.ref }}"
+          
       - uses: actions/checkout@v4.2.2
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.207.0
         with:
           ruby-version: "3.2"
-          bundler-cache: false   # runs bundle install and caches automatically
-          
-      - name: Install dependencies
-        run: bundle install
-        
+          bundler-cache: true   # runs bundle install and caches automatically
+     
       - name: Run tests
         run: bundle exec rspec
 
@@ -31,13 +33,20 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v') }}
+    # if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v') }}
+    if: always() && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v'))
     
     permissions:
       packages: write
       contents: read
 
     steps:
+      - name: Debug Publish Context
+        run: |
+          echo "Publish job was triggered!"
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Git Ref: ${{ github.ref }}"
+          
       - uses: actions/checkout@v4.2.2
 
       - name: Set up Ruby
