@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+# Pull isodoc-ech from the same GitHub org via GitHub Packages.
+# Replace YOUR-ORG with your GitHub organisation/username.
+source "https://rubygems.pkg.github.com/p1d1d1" do
+  gem "isodoc-ech"
+end
+
+gemspec

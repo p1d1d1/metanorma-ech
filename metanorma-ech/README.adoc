@@ -1,0 +1,279 @@
+= metanorma-ech
+:toc:
+:toclevels: 3
+
+image:https://img.shields.io/badge/metanorma-ech-blue[]
+
+Metanorma processor and IsoDoc output converters for
+**eCH standards** (E-Government CH, Switzerland).
+
+This gem lets you author eCH standards in AsciiDoc and produce:
+
+* **HTML** — styled to the eCH visual identity
+* **Word (.doc)** — using the original eCH paragraph styles
+* **PDF** — via XSL-FO
+
+== Installation
+
+Add to your `Gemfile`:
+
+[source,ruby]
+----
+gem "metanorma-ech"
+----
+
+Or install directly:
+
+[source,shell]
+----
+gem install metanorma-ech
+----
+
+You also need the Metanorma CLI:
+
+[source,shell]
+----
+gem install metanorma-cli
+----
+
+== Quick start
+
+[source,shell]
+----
+# Compile to all output formats
+metanorma compile --type ech docs/sample-ech-standard.adoc
+
+# HTML only
+metanorma compile --type ech --format html my-standard.adoc
+
+# Word only
+metanorma compile --type ech --format doc my-standard.adoc
+----
+
+== Document header attributes
+
+All eCH-specific attributes are prefixed with `ech-`.
+
+[cols="2,3,1",options="header"]
+|===
+| Attribute | Description | Required
+
+| `:ech-nummer:`
+| The four-digit eCH standard number (e.g. `0123`)
+| Yes
+
+| `:edition:`
+| Version in `x.x.x` format (e.g. `1.0.0`)
+| Yes
+
+| `:ech-status:`
+| One of `Entwurf`, `Vernehmlassung`, `Genehmigt`, `Aufgehoben`
+| Yes
+
+| `:ech-kategorie:`
+| One of `Standard`, `Hilfsmittel`, `Grundlage`, `Anleitung`, `Rahmenwerk`
+| Yes
+
+| `:ech-reifegrad:`
+| Same values as `:ech-status:`
+| Yes
+
+| `:ech-ausgabedatum:`
+| Publication date `YYYY-MM-DD`
+| Yes
+
+| `:ech-beschluss-am:`
+| Ratification date `YYYY-MM-DD`
+| No
+
+| `:ech-replaces:`
+| Version string being superseded (e.g. `0.9.0`)
+| No
+
+| `:ech-prerequisites:`
+| Comma-separated list of prerequisite standards
+| No
+
+| `:ech-annexes:`
+| Description of annexes
+| No
+
+| `:ech-working-group:`
+| Name of the eCH Fachgruppe
+| Yes
+
+| `:ech-languages:`
+| Comma-separated ISO 639-1 codes (e.g. `de,fr`)
+| No (default: `de`)
+
+|===
+
+== Document structure
+
+The required eCH structure is enforced automatically.
+If you omit a mandatory section, a warning is emitted during compilation.
+
+[source,asciidoc]
+----
+= Titel des Standards
+:ech-nummer: 0123
+:edition: 1.0.0
+:ech-status: Entwurf
+:ech-kategorie: Standard
+:ech-reifegrad: Entwurf
+:ech-ausgabedatum: 2025-03-01
+:ech-working-group: Fachgruppe Muster
+:mn-document-class: ech
+
+== Einleitung
+=== Status
+=== Anwendungsgebiet
+
+== <Your content chapters>
+
+== Sicherheitsüberlegungen
+
+== Haftungsausschluss/Hinweise auf Rechte Dritter
+[.boilerplate#ech-haftung]
+
+== Urheberrechte
+[.boilerplate#ech-urheberrecht]
+
+[appendix]
+== Referenzen & Bibliographie
+
+[appendix]
+== Mitarbeit & Überprüfung
+
+[appendix]
+== Abkürzungen und Glossar
+
+[appendix]
+== Änderungen gegenüber Vorversion
+----
+
+=== Mandatory sections
+
+The following sections are **required** by the eCH template.
+They may be left with boilerplate content (`[.boilerplate#id]`) or filled in:
+
+* *Einleitung* → *Status* + *Anwendungsgebiet*
+* *Sicherheitsüberlegungen*
+* *Haftungsausschluss/Hinweise auf Rechte Dritter* (boilerplate)
+* *Urheberrechte* (boilerplate)
+* *Anhang A* — Referenzen & Bibliographie
+* *Anhang B* — Mitarbeit & Überprüfung
+* *Anhang C* — Abkürzungen und Glossar
+* *Anhang D* — Änderungen gegenüber Vorversion
+
+=== Section numbering
+
+Section numbering follows the eCH convention:
+
+* Numbered chapters: `1`, `1.1`, `1.1.1`, …
+* Annexes: `Anhang A`, `Anhang B`, …
+
+Use `:sectnums:` and `:sectnumlevels: 4` in the document header.
+
+=== Lists
+
+[cols="2,2",options="header"]
+|===
+| eCH style | AsciiDoc syntax
+
+| `• Aufzählung` (bullet level 1) | `* item`
+| `• Aufzählung` (bullet level 2) | `** item`
+| `Aufzählung a)` (alpha level 1) | `a) item` or ordered list `a.`
+| `Aufzählung 1.` (numeric)       | `. item` (ordered list)
+|===
+
+=== Tables and figures
+
+[source,asciidoc]
+----
+[cols="3,3,3",options="header"]
+|===
+| Column 1 | Column 2 | Column 3
+| A | B | C
+|===
+.Tabelle: My table caption
+
+image::path/to/image.png[Alt text]
+.Abbildung: My figure caption
+----
+
+Captions are rendered in the *Abbildung/Tabelle Beschriftung* Word style.
+
+=== Austauschformat blocks
+
+For data exchange format specifications, use:
+
+[source,asciidoc]
+----
+[source,xml,role=Austauschformat]
+----
+<Person>
+  <Name>Muster</Name>
+</Person>
+----
+----
+
+This maps to the *Austauschformat* paragraph style in Word output.
+
+== Repository layout
+
+----
+metanorma-ech/
+├── lib/
+│   └── metanorma/
+│       └── ech/
+│           ├── version.rb        # gem version
+│           ├── processor.rb      # Metanorma::Processor subclass
+│           ├── converter.rb      # Asciidoctor backend
+│           ├── front.rb          # Cover-page metadata → XML
+│           ├── validate.rb       # eCH-specific validation
+│           └── boilerplate.xml   # Fixed legal text
+├── docs/
+│   ├── sample-ech-standard.adoc  # Full example document
+│   └── metanorma.yml
+└── metanorma-ech.gemspec
+
+isodoc-ech/
+├── lib/
+│   └── isodoc/
+│       └── ech/
+│           ├── html_convert.rb              # HTML output
+│           ├── word_convert.rb              # Word output
+│           └── presentation_xml_convert.rb  # Presentation XML + PDF
+├── templates/
+│   ├── html/
+│   │   ├── ech.scss   # Stylesheet
+│   │   └── header.html
+│   └── word/
+│       └── README.md  # How to prepare ech.dotx
+└── isodoc-ech.gemspec
+----
+
+== Word template setup
+
+To get proper Word output you need to extract the paragraph style definitions
+from the original eCH `.docx` template:
+
+1. Open `XXXX_d_DRA_JJJJ-MM-TT_eCH-0XXX_Vx_x_x_Titel.docx` in Word.
+2. Delete all body content (keep headers, footers, cover table).
+3. Save as *Word Template (.dotx)* → `isodoc-ech/templates/word/ech.dotx`.
+
+The `WordConvert` class will use `ech.dotx` as the base and inject
+generated content with the correct style names.
+
+== Contributing
+
+. Fork the repo
+. Create a feature branch (`git checkout -b feature/my-feature`)
+. Add specs under `spec/`
+. Run `bundle exec rspec`
+. Open a pull request
+
+== License
+
+MIT © Verein eCH / contributors

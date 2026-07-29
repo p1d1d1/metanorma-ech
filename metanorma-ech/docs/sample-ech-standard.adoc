@@ -1,0 +1,180 @@
+= Bezeichnung des eCH-Standards
+:doctype: standard
+:flavor: ech
+:publisher: Verein eCH
+// ── eCH cover-page metadata ──────────────────────────────────────────────
+:ech-nummer: 0123
+:edition: 1.0.0
+:ech-status: Entwurf
+:ech-kategorie: Standard
+:ech-reifegrad: Entwurf
+:ech-beschluss-am: 2025-01-01
+:ech-ausgabedatum: 2025-03-01
+:ech-replaces:
+:ech-prerequisites: eCH-0122
+:ech-annexes: Anhang A
+:ech-working-group: Fachgruppe Muster
+:ech-languages: de,fr
+// ── Metanorma standard attributes ────────────────────────────────────────
+:mn-document-class: ech
+:language: de
+:script: Latn
+:toc:
+:toclevels: 4
+:sectnums:
+:sectnumlevels: 4
+:imagesdir: images
+:stem:
+
+== Zusammenfassung
+
+Kurze Zusammenfassung des Zwecks des Dokuments.
+
+[NOTE]
+====
+Dieser Block wird im Inhaltsverzeichnis nicht aufgeführt.
+====
+
+== Einleitung
+
+=== Status
+
+include::status.adoc[]
+
+// Alternatively inline:
+// Draft.
+
+=== Anwendungsgebiet
+
+[.instruction]
+--
+Die Angaben in diesem Kapitel sollen dem Leser einen raschen Überblick
+geben, wofür dieser Standard gedacht ist.
+--
+
+* Benennung der Aufgabenbereiche gem. [eCH-0122]
+* Konkrete Meldeflüsse mit den entsprechenden Kommunikationspartnern
+* Konkrete Use-Cases, die vom Standard unterstützt werden
+
+== Normative Verweise
+
+* [[[eCH-0122,eCH-0122]]], eCH-0122: Architektur E-Government Schweiz: Grundlagen
+
+== Begriffe und Definitionen
+
+Austauschformat::
+  Datenformat, das für den elektronischen Austausch zwischen Systemen
+  definiert wird.
+
+== Haupttitel
+
+Einleitungstext zum Kapitel.
+
+image::diagram.png[Beschriftung des Diagramms, width=50%]
+.Abbildung: Architekturdiagramm
+
+=== Unterkapitel
+
+==== Unterunterkapitel
+
+* Aufzählung Ebene 1
+** Aufzählung Ebene 2
+*** Aufzählung Ebene 3
+
+. Nummerierte Ebene 1
+.. Nummerierte Ebene 2
+
+a) Alphabetisch Ebene 1
+   1. Nummeriert darunter
+
+[cols="3,3,3",options="header"]
+|===
+| Spalte 1 | Spalte 2 | Spalte 3
+
+| Wert A   | Wert B   | Wert C
+| Wert D   | Wert E   | Wert F
+|===
+.Tabelle: Beispieltabelle
+
+===== Unterkapitel Ebene 5
+
+Text auf der fünften Ebene.
+
+== Sicherheitsüberlegungen
+
+// Dieser Abschnitt ist gemäss eCH-Template zwingend erforderlich.
+// Er wird automatisch aus boilerplate.xml eingefügt wenn er fehlt;
+// besser aber hier explizit mit eigenem Inhalt befüllen.
+
+Bei der Umsetzung sind die relevanten gesetzlichen Grundlagen zu beachten,
+insbesondere das Datenschutzgesetz (DSG) und allfällige Verordnungen.
+
+== Haftungsausschluss/Hinweise auf Rechte Dritter
+
+// Dieser Text wird automatisch aus der Boilerplate eingefügt.
+// Nicht bearbeiten – er ist normativ und unveränderlich.
+
+[.boilerplate#ech-haftung]
+
+== Urheberrechte
+
+// Dieser Text wird automatisch aus der Boilerplate eingefügt.
+
+[.boilerplate#ech-urheberrecht]
+
+[appendix,id=anhang-a]
+== Referenzen & Bibliographie
+
+[bibliography]
+=== Normative Referenzen
+
+* [[[eCH-0122,eCH-0122]]] Verein eCH: _eCH-0122 Architektur E-Government Schweiz_.
+
+=== Informative Referenzen
+
+* [[[DSG,DSG]]] Datenschutzgesetz vom 25. September 2020 (SR 235.1).
+
+[appendix,id=anhang-b]
+== Mitarbeit & Überprüfung
+
+[cols="2,3",options="header"]
+|===
+| Name       | Organisation / Firma
+
+| N. N.      | Muster AG
+| N. N.      | Kanton Beispiel
+|===
+
+[appendix,id=anhang-c]
+== Abkürzungen und Glossar
+
+[cols="1,4",options="header"]
+|===
+| Abkürzung | Bedeutung
+
+| API       | Application Programming Interface
+| DSG       | Datenschutzgesetz
+| eCH       | E-Government CH
+|===
+
+[appendix,id=anhang-d]
+== Änderungen gegenüber Vorversion
+
+Dies ist die erste Version.
+
+[cols="2,1,4,2",options="header"]
+|===
+| Kapitel | Seite | Anpassung | RFC Nr.
+
+|         |       |           |
+|===
+
+[appendix,id=anhang-e]
+== Abbildungsverzeichnis
+
+// Automatisch generiert durch Metanorma.
+
+[appendix,id=anhang-f]
+== Tabellenverzeichnis
+
+// Automatisch generiert durch Metanorma.

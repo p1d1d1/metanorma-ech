@@ -1,0 +1,8 @@
+---
+metanorma:
+  source:
+    files:
+      - sample-ech-standard.adoc
+  collection:
+    organization: "Verein eCH"
+    name: "eCH-Standards"
