@@ -10,12 +10,8 @@ module Metanorma
 
       register_for "ech"
 
-      def schema_file
-        nil
-      end
-
-      def validate_schema (_doc)
-        # Schema validation skipped — no RNG schema defined for eCH yet
+      def jing(_schema, _file)
+        # RNG validation skipped — no schema defined for eCH yet
       end
 
       def boilerplate_file(_xmldoc)
