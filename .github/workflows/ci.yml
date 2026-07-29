@@ -34,13 +34,13 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.207.0
         with:
           ruby-version: "3.2"
-          bundler-cache: true
+          bundler-cache: false
 
       - name: Configure GitHub Packages as gem source
         run: |
