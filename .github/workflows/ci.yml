@@ -20,7 +20,10 @@ jobs:
         with:
           ruby-version: "3.2"
           bundler-cache: false   # runs bundle install and caches automatically
-
+          
+      - name: Install dependencies
+        run: bundle install
+        
       - name: Run tests
         run: bundle exec rspec
 
