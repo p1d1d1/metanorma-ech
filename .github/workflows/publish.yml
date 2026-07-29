@@ -31,12 +31,12 @@ jobs:
 
       - name: Build gem
         run: |
-          gem build metanorma-ech/metanorma-ech.gemspec
-          gem build isodoc-ech/isodoc-ech.gemspec
+          cd metanorma-ech && gem build metanorma-ech.gemspec && cd ..
+          cd isodoc-ech && gem build isodoc-ech.gemspec && cd ..
 
       - name: Push to GitHub Packages
         run: |
-          for gem in *.gem; do
+          for gem in metanorma-ech/*.gem isodoc-ech/*.gem; do
             gem push --key github \
               --host https://rubygems.pkg.github.com/${{ github.repository_owner }} \
               "$gem"
