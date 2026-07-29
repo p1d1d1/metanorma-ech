@@ -6,6 +6,7 @@ require "isodoc-ech"
 
 require_relative "ech/version"
 require_relative "ech/validate"
+require_relative "ech/cleanup"
 require_relative "ech/converter"
 require_relative "ech/processor"
 
