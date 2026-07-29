@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "templates/**/*", "*.gemspec", "README.adoc"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "isodoc", "~> 2.0"
+  spec.add_dependency "isodoc"
 end
